@@ -25,13 +25,24 @@ h1 {
   display: flex;
   background-color: red;
   width: 100%;
-  height: 75%;
+  height: 70%;
 }
 
 .user-input-fields {
+  display: flex;
   background-color: orange;
+  width: 100%;
+  height: 30%;
+}
+
+.new-project {
   width: 50%;
-  height: 25%;
+  height: 100%;
+}
+
+.new-palette {
+  width: 50%;
+  height: 100%;
 }
 
 .color-one {
@@ -61,5 +72,4 @@ h1 {
   background-color: hotpink;
   height: 60%;
   width: 20%;
-
 }
