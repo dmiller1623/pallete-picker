@@ -14,6 +14,8 @@ app.locals.palettes = [
   {id: 4, colors: ['#BC9097', '#EF6789', '#78EEC4', '#9A4567', '#CDB889']}
 ]
 
+app.locals.folders
+
 app.use(express.static('public'))
 
 app.get('/', (request, response) => {
@@ -38,8 +40,8 @@ app.get('/api/v1/palettes/:id', (request, response) => {
 app.post('/api/v1/palettes', (request, response) => {
   const id = app.locals.palettes.length + 1
   const { newPalette } = request.body; 
-  app.locals.palettes.push(newPalette)
-  return response.status(201).json({ id, newPalette })
+  app.locals.palettes.push({...newPalette, id})
+  return response.status(201).json({ newPalette, id })
 })
 
 app.listen(app.get('port'), () => {
