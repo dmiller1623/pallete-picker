@@ -22,7 +22,6 @@ const getColors = () => {
 const lockColor = (event) => {
   ($(event.target.parentElement)).toggleClass('locked')
   console.log(event.target.parentElement)
-
 }
 
 $('.lock-button').on('click', lockColor)
