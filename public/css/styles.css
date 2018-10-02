@@ -1,0 +1,65 @@
+body {
+  display: flex;
+}
+
+h1 {
+  color: white;
+}
+
+.projects-nav {
+  width: 20%;
+  height: 100vh;
+  background-color: blue;
+}
+
+.pallete-section {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100vh;
+  background-color: black;
+}
+
+.palettes {
+  align-items: flex-end;
+  display: flex;
+  background-color: red;
+  width: 100%;
+  height: 75%;
+}
+
+.user-input-fields {
+  background-color: orange;
+  width: 50%;
+  height: 25%;
+}
+
+.color-one {
+  background-color: aqua;
+  width: 20%;
+  height: 60%;
+}
+.color-two {
+  background-color: blueviolet;
+  height: 60%;
+  width: 20%;
+
+}
+.color-three {
+  background-color: chartreuse;
+  height: 60%;
+  width: 20%;
+
+}
+.color-four {
+  background-color: cyan;
+  height: 60%;
+  width: 20%;
+
+}
+.color-five {
+  background-color: hotpink;
+  height: 60%;
+  width: 20%;
+
+}
