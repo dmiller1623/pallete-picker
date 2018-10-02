@@ -21,7 +21,10 @@ const getColors = () => {
 
 const lockColor = (event) => {
   ($(event.target.parentElement)).toggleClass('locked')
-  console.log(event.target.parentElement)
+}
+
+const savePalette = () => {
+  
 }
 
 $('.lock-button').on('click', lockColor)
