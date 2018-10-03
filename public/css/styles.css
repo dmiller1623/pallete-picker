@@ -1,4 +1,12 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
+  padding: 0;
   display: flex;
 }
 
@@ -7,12 +15,16 @@ h1 {
 }
 
 .projects-nav {
+  display: flex;
+  justify-content: center;
   width: 20%;
+  border: 1px white solid;
   height: 100vh;
-  background-color: blue;
+  background-color: black
 }
 
 .pallete-section {
+  align-items: center;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -21,55 +33,90 @@ h1 {
 }
 
 .palettes {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
-  background-color: red;
+  justify-content: space-around;
   width: 100%;
   height: 70%;
 }
 
 .user-input-fields {
   display: flex;
-  background-color: orange;
+  background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
   width: 100%;
   height: 30%;
 }
 
 .new-project {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50%;
   height: 100%;
 }
 
 .new-palette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50%;
   height: 100%;
 }
 
 .color-one {
+  border: 1px white solid;
+  display: flex;
+  flex-direction: column-reverse;
   background-color: aqua;
-  width: 20%;
-  height: 60%;
+  width: 18%;
+  height: 80%;
 }
 .color-two {
+  border: 1px white solid;
+  display: flex;
+  flex-direction: column-reverse;
   background-color: blueviolet;
-  height: 60%;
-  width: 20%;
-
+  height: 80%;
+  width: 18%;
 }
-.color-three {
-  background-color: chartreuse;
-  height: 60%;
-  width: 20%;
 
+.color-three {
+  border: 1px white solid;
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: chartreuse;
+  height: 80%;
+  width: 18%;
 }
 .color-four {
+  border: 1px white solid;
+  display: flex;
+  flex-direction: column-reverse;
   background-color: cyan;
-  height: 60%;
-  width: 20%;
-
+  height: 80%;
+  width: 18%;
 }
+
 .color-five {
+  border: 1px white solid;
+  display: flex;
+  flex-direction: column-reverse;
   background-color: hotpink;
-  height: 60%;
-  width: 20%;
+  height: 80%;
+  width: 18%;
+}
+
+.color-code {
+  display: flex;
+  color: white;
+}
+
+.bottom-info {
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  height: 20%;
+  width: 100%;
 }
