@@ -1,4 +1,12 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
+  padding: 0;
   display: flex;
 }
 
@@ -7,9 +15,12 @@ h1 {
 }
 
 .projects-nav {
+  display: flex;
+  justify-content: center;
   width: 20%;
+  border: 1px white solid;
   height: 100vh;
-  background-color: blue;
+  background-color: black
 }
 
 .pallete-section {
@@ -25,14 +36,13 @@ h1 {
   align-items: center;
   display: flex;
   justify-content: space-around;
-  /* background-color */
   width: 100%;
   height: 70%;
 }
 
 .user-input-fields {
   display: flex;
-  background-color: orange;
+  background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
   width: 100%;
   height: 30%;
 }

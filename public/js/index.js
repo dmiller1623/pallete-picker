@@ -17,13 +17,12 @@ const getColors = () => {
       let newColor = getNewPalette()
       $(`${colorClass}`).css('background-color', newColor)
       $(`${colorClass}`).children().children('.color-code').text(newColor)
-      // console.log($(`${colorClass}`).next())
     }
   })
 }
 
 const lockColor = (event) => {
-  ($(event.target.parentElement)).toggleClass('locked')
+  ($(event.target.parentElement.parentElement)).toggleClass('locked')
 }
 
 const savePalette = async () => {
