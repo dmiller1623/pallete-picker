@@ -46,34 +46,50 @@ h1 {
 }
 
 .color-one {
+  display: flex;
+  flex-direction: column-reverse;
   background-color: aqua;
   width: 20%;
   height: 60%;
 }
 .color-two {
+  display: flex;
+  flex-direction: column-reverse;
   background-color: blueviolet;
   height: 60%;
   width: 20%;
-
 }
+
 .color-three {
+  display: flex;
+  flex-direction: column-reverse;
   background-color: chartreuse;
   height: 60%;
   width: 20%;
-
 }
 .color-four {
+  display: flex;
+  flex-direction: column-reverse;
   background-color: cyan;
   height: 60%;
   width: 20%;
-
 }
+
 .color-five {
+  display: flex;
+  flex-direction: column-reverse;
   background-color: hotpink;
   height: 60%;
   width: 20%;
 }
 
 .color-code {
+  display: flex;
   color: white;
+}
+
+.bottom-info {
+  background-color: black;
+  height: 30%;
+  width: 100%;
 }

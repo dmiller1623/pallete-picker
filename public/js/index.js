@@ -16,7 +16,8 @@ const getColors = () => {
     } else {
       let newColor = getNewPalette()
       $(`${colorClass}`).css('background-color', newColor)
-      $(`${colorClass}`).children('.color-code').text(newColor)
+      $(`${colorClass}`).children().children('.color-code').text(newColor)
+      // console.log($(`${colorClass}`).next())
     }
   })
 }
@@ -52,9 +53,12 @@ const addNewProject = (event) => {
     color_four: $('.code-four').text(),
     color_five: $('.code-five').text(),
   }
-
   console.log(newPalette)
 }
+
+$(document).ready(() =>{
+  getColors();
+})
 
 $('.save-project-button').on('click', addNewProject)
 $('.save-palette-button').on('click', savePalette)
