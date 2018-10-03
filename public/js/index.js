@@ -1,20 +1,21 @@
-const getNewPalette = () => {
+let projects = [];
+
+const getNewColor = () => {
   let codeOptions = '0123456789ABCDEF'.split('');
   var color = '#'
   for(var i = 0; i < 6; i++) {
     color += codeOptions[Math.round(Math.random() * 15)]
   }
-  console.log(color)
   return color
 }
 
-const getColors = () => {
+const getNewPalette = () => {
   let colorClasses = ['.color-one', '.color-two', '.color-three', '.color-four', '.color-five']
   colorClasses.forEach(colorClass => {
     if ($(`${colorClass}`).hasClass('locked')) {
       return 
     } else {
-      let newColor = getNewPalette()
+      let newColor = getNewColor()
       $(`${colorClass}`).css('background-color', newColor)
       $(`${colorClass}`).children().children('.color-code').text(newColor)
     }
@@ -52,14 +53,20 @@ const addNewProject = (event) => {
     color_four: $('.code-four').text(),
     color_five: $('.code-five').text(),
   }
-  console.log(newPalette)
+  projects.push(newPalette)
+  console.log(projects)
+  displayProjects(projects)
+}
+
+const displayProjects = (projects) => {
+  // console.log(projects)
 }
 
 $(document).ready(() =>{
-  getColors();
+  getNewPalette();
 })
 
 $('.save-project-button').on('click', addNewProject)
 $('.save-palette-button').on('click', savePalette)
 $('.lock-button').on('click', lockColor)
-$('.new-palette-button').on('click', getColors)
+$('.new-palette-button').on('click', getNewPalette)
