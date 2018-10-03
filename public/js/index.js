@@ -59,7 +59,7 @@ const addNewProject = (event) => {
 }
 
 const displayProjects = (projects) => {
-  // console.log(projects)
+  $('.projects-display').text('cbjksdbc')
 }
 
 $(document).ready(() =>{
