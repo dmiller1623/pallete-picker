@@ -14,7 +14,9 @@ const getColors = () => {
     if ($(`${colorClass}`).hasClass('locked')) {
       return 
     } else {
-      $(`${colorClass}`).css('background-color', getNewPalette())
+      let newColor = getNewPalette()
+      $(`${colorClass}`).css('background-color', newColor)
+      $(`${colorClass}`).children('.color-code').text(newColor)
     }
   })
 }
@@ -36,13 +38,22 @@ const savePalette = async () => {
       newPalette
     })
   })
-  await console.log(response.json())
+  // await console.log(response.json())
 }
 
 const addNewProject = (event) => {
   event.preventDefault()
-  const projectName = $('.project-name').val()
-  console.log(projectName)
+  let projectName = $('.project-name').val()
+  let newPalette = {
+    projectName,
+    color_one: $('.code-one').text(),
+    color_two: $('.code-two').text(),
+    color_three: $('.code-three').text(),
+    color_four: $('.code-four').text(),
+    color_five: $('.code-five').text(),
+  }
+
+  console.log(newPalette)
 }
 
 $('.save-project-button').on('click', addNewProject)
