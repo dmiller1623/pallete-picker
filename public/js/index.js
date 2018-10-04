@@ -51,19 +51,18 @@ const displayProjects = async () => {
     </div>
     `)
     project.palettes.forEach(palette => {
+      console.log(palette)
       projectDisplay.append(`
       <div class='database-palettes'>
-        <section class='data-color-one'>${palette.color_one}</section>
-        <section class='data-color-two'>${palette.color_two}</section>
-        <section class='data-color-three'>${palette.color_three}</section>
-        <section class='data-color-four'>${palette.color_four}</section>
-        <section class='data-color-five'>${palette.color_five}</section>
+        <section class='data-color-one' style=background-color:${palette.color_one}></section>
+        <section class='data-color-two' style=background-color:${palette.color_two}></section>
+        <section class='data-color-three' style=background-color:${palette.color_three}></section>
+        <section class='data-color-four' style=background-color:${palette.color_four}></section>
+        <section class='data-color-five' style=background-color:${palette.color_five}></section>
       </div>
       `)
     })
   })
-
-  
 }
 
 const addNewProject = async () => {
@@ -97,7 +96,7 @@ const addNewPalette = async () => {
   }
   console.log(newPalette)
   try {
-    const response = await fetch('/api/v1/projects/1/palettes', {
+    const response = await fetch('/api/v1/projects/11/palettes', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'

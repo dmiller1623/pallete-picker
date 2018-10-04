@@ -141,9 +141,35 @@ h1 {
 }
 
 .database-palettes {
+  display: flex;
   margin: 1rem;
   background-color: white;
   width: 13rem;
   min-height: 200px;
   border: 1px white solid;
+}
+
+.data-color-one {
+  width: 20%;
+  /* height: 70%; */
+}
+
+.data-color-two {
+  width: 20%;
+  /* height: 70%; */
+}
+
+.data-color-three {
+  width: 20%;
+  /* height: 70%; */
+}
+
+.data-color-four {
+  width: 20%;
+  /* height: 70%; */
+}
+
+.data-color-five {
+  width: 20%;
+  /* height: 70%; */
 }
