@@ -8,16 +8,16 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 
-app.locals.palettes = [
-  {id: 1, colors: ['#152957', '#831FAE', '#98D906', '#7ADC8F', '#BD7C3A']},
-  {id: 2, colors: ['#CD5789', '#AAEE67', '#56CD87', '#BBA432', '#EA6548']},
-  {id: 3, colors: ['#AE5643', '#CD4321', '#89AA22', '#7C763F', '#AF9385']},
-  {id: 4, colors: ['#BC9097', '#EF6789', '#78EEC4', '#9A4567', '#CDB889']}
-]
+// app.locals.palettes = [
+//   {id: 1, colors: ['#152957', '#831FAE', '#98D906', '#7ADC8F', '#BD7C3A']},
+//   {id: 2, colors: ['#CD5789', '#AAEE67', '#56CD87', '#BBA432', '#EA6548']},
+//   {id: 3, colors: ['#AE5643', '#CD4321', '#89AA22', '#7C763F', '#AF9385']},
+//   {id: 4, colors: ['#BC9097', '#EF6789', '#78EEC4', '#9A4567', '#CDB889']}
+// ]
 
-app.locals.folders
+// app.locals.folders
 
 app.use(express.static('public'))
 
