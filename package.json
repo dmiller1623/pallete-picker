@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/dmiller1623/pallete-picker#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "pg": "^7.5.0"
   }
 }
