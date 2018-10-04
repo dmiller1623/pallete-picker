@@ -42,28 +42,31 @@ const lockColor = (event) => {
 //   // await console.log(response.json())
 // }
 
-const addNewProject = (event) => {
-  event.preventDefault()
-  let projectName = $('.project-name').val()
-  // let newPalette = {
-  //   projectName,
-  //   color_one: $('.code-one').text(),
-  //   color_two: $('.code-two').text(),
-  //   color_three: $('.code-three').text(),
-  //   color_four: $('.code-four').text(),
-  //   color_five: $('.code-five').text(),
-  // }
-  projects.push(newPalette)
-  console.log(projects)
-  // addNewPalette(newPalette)
-  displayProjects(projects)
-}
-
 const displayProjects = async (projects) => {
   const response = await fetch('/api/v1/projects')
   const data = await response.json()
   console.log(data)
   $('.projects-display').text('cbjksdbc')
+}
+
+const addNewProject = async () => {
+  let projectName = {name: $('.project-name').val()};
+  try {
+    const response = await fetch('/api/v1/projects', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...projectName
+      })
+    });
+    displayProjects(projects)
+    return await response.json()
+  } catch (error) {
+    throw new Error(error.message)
+  }
+  
 }
 
 const addNewPalette = async () => {
@@ -86,7 +89,6 @@ const addNewPalette = async () => {
         ...newPalette
       })
     });
-    console.log(response.json())
     return await response.json()
     // if (response.status !==201) {
     //   alert('palette name already exsists')
@@ -95,7 +97,7 @@ const addNewPalette = async () => {
     //   return await response.json();
     // }
   } catch (error) {
-    throw new Error(error.meassage);
+    throw new Error(error.message);
   }
 };
 

@@ -48,11 +48,11 @@ app.get('/api/v1/palettes',(request, response) => {
 
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
- 
-    if(!project.name) {
+  console.log(project)
+    if(!project) {
       return response
         .status(422)
-        .send({ error: `your missing ${requiredParamater} property`});
+        .send({ error: `your missing a name property` });
     }
 
   database('projects').insert(project, 'id')
