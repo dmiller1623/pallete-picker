@@ -21,6 +21,7 @@ h1 {
   width: 20%;
   border: 1px white solid;
   height: 100vh;
+  overflow: scroll;
   background-color: black
 }
 
@@ -125,6 +126,24 @@ h1 {
 }
 
 .projects-display {
+  height: 100%;
+  /* overflow: scroll; */
   display: flex;
   color: white;
+}
+
+.database-projects-header {
+  margin: 1rem;
+  background-color: white;
+  width: 15rem;
+  height: 25px;
+  border: 1px white solid;
+}
+
+.database-palettes {
+  margin: 1rem;
+  background-color: white;
+  width: 13rem;
+  min-height: 200px;
+  border: 1px white solid;
 }

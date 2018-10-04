@@ -103,12 +103,12 @@ for (let requiredParamater of ['color_one', 'color_two', 'color_three', 'color_f
 //   return response.status(200).json(selectedPalette)
 // })
 
-app.post('/api/v1/palettes', (request, response) => {
-  const id = app.locals.palettes.length + 1
-  const { newPalette } = request.body; 
-  app.locals.palettes.push({...newPalette, id})
-  return response.status(201).json({ newPalette, id })
-})
+// app.post('/api/v1/palettes', (request, response) => {
+//   const id = app.locals.palettes.length + 1
+//   const { newPalette } = request.body; 
+//   app.locals.palettes.push({...newPalette, id})
+//   return response.status(201).json({ newPalette, id })
+// })
 
 app.listen(app.get('port'), () => {
   console.log('server is running on local3000')

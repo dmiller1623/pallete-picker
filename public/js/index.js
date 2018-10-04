@@ -28,25 +28,42 @@ const lockColor = (event) => {
 
 const getPalettes = async () => {
   const response = await fetch('/api/v1/palettes')
-  const data = await response.json();
-  console.log(data)
+  const palettes = await response.json();
+  return palettes
 }
 const displayProjects = async () => {
+  const projectDisplay = $('.projects-nav')
+  projectDisplay.empty();
   const response = await fetch('/api/v1/projects')
   const projects = await response.json()
-  // console.log(projects)
-  const projectDisplay = $('.projects-nav')
-  console.log(projectDisplay)
-  projects.forEach(project => {
-    // console.log(project)
-     projectDisplay.append(`
-      <div>
-        <p>${project.name}</p>
-      </div>
-    `)
+  const palettes = await getPalettes();
+  const projectsAndPalettes = projects.map(project => {
+    const orderedPalettes = palettes.filter(palette => {
+      return palette.project_id === project.id
+    })
+    return {...project, palettes: orderedPalettes}
   })
+  console.log(projectsAndPalettes)
+  projectsAndPalettes.forEach(project => {
+    projectDisplay.append(`
+    <div class='database-projects=header'>
+      <h1>${project.name}</h1>
+    </div>
+    `)
+    project.palettes.forEach(palette => {
+      projectDisplay.append(`
+      <div class='database-palettes'>
+        <section class='data-color-one'>${palette.color_one}</section>
+        <section class='data-color-two'>${palette.color_two}</section>
+        <section class='data-color-three'>${palette.color_three}</section>
+        <section class='data-color-four'>${palette.color_four}</section>
+        <section class='data-color-five'>${palette.color_five}</section>
+      </div>
+      `)
+    })
+  })
+
   
-  getPalettes();
 }
 
 const addNewProject = async () => {
@@ -89,6 +106,7 @@ const addNewPalette = async () => {
         ...newPalette
       })
     });
+    displayProjects();
     return await response.json()
     // if (response.status !==201) {
     //   alert('palette name already exsists')
@@ -110,3 +128,4 @@ $('.save-project-button').on('click', addNewProject)
 $('.save-palette-button').on('click', addNewPalette)
 $('.lock-button').on('click', lockColor)
 $('.new-palette-button').on('click', getNewPalette)
+
