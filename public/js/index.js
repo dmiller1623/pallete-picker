@@ -83,7 +83,7 @@ const addNewPalette = async () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        newPalette
+        ...newPalette
       })
     });
     console.log(response.json())
