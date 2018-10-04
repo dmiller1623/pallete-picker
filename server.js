@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration);
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -18,24 +21,85 @@ app.locals.folders
 
 app.use(express.static('public'))
 
-app.get('/', (request, response) => {
-  response.send('Helooooooo')
-});
+// app.get('/', (request, response) => {
+//   response.send('Helooooooo')
+// });
 
-app.get('/api/v1/palettes', (request, response) => {
-  const palettes = app.locals.palettes;
-
-  response.json({ palettes })
-})
-
-app.get('/api/v1/palettes/:id', (request, response) => {
-  const palettes = app.locals.palettes;
-  const id = request.params.id;
-  const selectedPalette = palettes.find(pallete => {
-    return pallete.id == id
+app.get('/api/v1/projects', (request, response) => {
+  database('projects').select()
+  .then((projects) => {
+    response.status(200).json(projects)
   })
-  return response.status(200).json(selectedPalette)
+
+  .catch((error) => {
+    response.status(500).json({ error })
+  })
 })
+
+app.get('/api/v1/palettes',(request, response) => {
+  database('palettes').select()
+  .then((palettes) => {
+    response.status(200).json(palettes)
+  })
+  .catch((error) => {
+    response.status(500).json({ error })
+  })
+})
+
+app.post('/api/v1/projects', (request, response) => {
+  const project = request.body;
+ 
+    if(!project.name) {
+      return response
+        .status(422)
+        .send({ error: `your missing ${requiredParamater} property`});
+    }
+
+  database('projects').insert(project, 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0] })
+    })
+
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+})
+
+app.post('/api/v1/projects/:id/palettes', (request, response) => {
+  const palette = request.body;
+  // const id = request.params.id;
+
+for (let requiredParamater of ['name', 'color_one', 'color_two', 'color_three', 'color_four', 'color_five', 'project_id']) {
+  if(!palette[requiredParamater]) {
+    return response 
+      .status(422)
+      .send({ error: `your missing a ${requiredParamater} property` })
+  }
+}
+
+  database('palettes').insert(palette, 'id')
+    .then(palette => {
+      response.status(201).json({ id: palette[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    }) 
+})
+
+// app.get('/api/v1/palettes', (request, response) => {
+//   const palettes = app.locals.palettes;
+
+//   response.json({ palettes })
+// })
+
+// app.get('/api/v1/palettes/:id', (request, response) => {
+//   const palettes = app.locals.palettes;
+//   const id = request.params.id;
+//   const selectedPalette = palettes.find(pallete => {
+//     return pallete.id == id
+//   })
+//   return response.status(200).json(selectedPalette)
+// })
 
 app.post('/api/v1/palettes', (request, response) => {
   const id = app.locals.palettes.length + 1
