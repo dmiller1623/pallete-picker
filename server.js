@@ -67,9 +67,11 @@ app.post('/api/v1/projects', (request, response) => {
 
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const palette = request.body;
-  // const id = request.params.id;
+  const id = request.params.id;
+  const newPalette = {...palette, id}
+  console.log(newPalette)
 
-for (let requiredParamater of ['name', 'color_one', 'color_two', 'color_three', 'color_four', 'color_five', 'project_id']) {
+for (let requiredParamater of ['color_one', 'color_two', 'color_three', 'color_four', 'color_five', 'project_id', 'name']) {
   if(!palette[requiredParamater]) {
     return response 
       .status(422)
@@ -77,7 +79,7 @@ for (let requiredParamater of ['name', 'color_one', 'color_two', 'color_three', 
   }
 }
 
-  database('palettes').insert(palette, 'id')
+  database('palettes').insert(newPalette, 'id')
     .then(palette => {
       response.status(201).json({ id: palette[0] })
     })
