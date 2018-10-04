@@ -26,27 +26,27 @@ const lockColor = (event) => {
   ($(event.target.parentElement.parentElement)).toggleClass('locked')
 }
 
-// const savePalette = async () => {
-//   const newPalette = { colors: ['#BC9097', '#EF6789', '#78EEC4', '#9A4567', '#CDB889'] };
-
-//   const url = 'http://localhost:3000/api/v1/palettes';
-//   const response = await fetch(url, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       newPalette
-//     })
-//   })
-//   // await console.log(response.json())
-// }
-
-const displayProjects = async (projects) => {
-  const response = await fetch('/api/v1/projects')
-  const data = await response.json()
+const getPalettes = async () => {
+  const response = await fetch('/api/v1/palettes')
+  const data = await response.json();
   console.log(data)
-  $('.projects-display').text('cbjksdbc')
+}
+const displayProjects = async () => {
+  const response = await fetch('/api/v1/projects')
+  const projects = await response.json()
+  // console.log(projects)
+  const projectDisplay = $('.projects-nav')
+  console.log(projectDisplay)
+  projects.forEach(project => {
+    // console.log(project)
+     projectDisplay.append(`
+      <div>
+        <p>${project.name}</p>
+      </div>
+    `)
+  })
+  
+  getPalettes();
 }
 
 const addNewProject = async () => {
@@ -103,6 +103,7 @@ const addNewPalette = async () => {
 
 $(document).ready(() =>{
   getNewPalette();
+  displayProjects();
 })
 
 $('.save-project-button').on('click', addNewProject)
