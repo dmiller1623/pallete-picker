@@ -26,27 +26,49 @@ const lockColor = (event) => {
   ($(event.target.parentElement.parentElement)).toggleClass('locked')
 }
 
-// const savePalette = async () => {
-//   const newPalette = { colors: ['#BC9097', '#EF6789', '#78EEC4', '#9A4567', '#CDB889'] };
-
-//   const url = 'http://localhost:3000/api/v1/palettes';
-//   const response = await fetch(url, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       newPalette
-//     })
-//   })
-//   // await console.log(response.json())
-// }
-
-const displayProjects = async (projects) => {
+const getPalettes = async () => {
+  const response = await fetch('/api/v1/palettes')
+  const palettes = await response.json();
+  return palettes
+}
+const displayProjects = async () => {
+  const projectDisplay = $('.projects-nav')
+  projectDisplay.empty();
   const response = await fetch('/api/v1/projects')
-  const data = await response.json()
-  console.log(data)
-  $('.projects-display').text('cbjksdbc')
+  const projects = await response.json()
+  const palettes = await getPalettes();
+  const projectsAndPalettes = projects.map(project => {
+    const orderedPalettes = palettes.filter(palette => {
+      return palette.project_id === project.id
+    })
+    return {...project, palettes: orderedPalettes}
+  })
+  console.log(projectsAndPalettes)
+  projectsAndPalettes.forEach(project => {
+    projectDisplay.append(`
+    <div class='database-projects=header'>
+      <h1>${project.name}</h1>
+    </div>
+    `)
+    project.palettes.forEach(palette => {
+      console.log(palette)
+      projectDisplay.append(`
+      <div class='database-palettes'>
+        <div class='data-colors'>
+          <section class='data-color-one' style=background-color:${palette.color_one}></section>
+          <section class='data-color-two' style=background-color:${palette.color_two}></section>
+          <section class='data-color-three' style=background-color:${palette.color_three}></section>
+          <section class='data-color-four' style=background-color:${palette.color_four}></section>
+          <section class='data-color-five' style=background-color:${palette.color_five}></section>
+        </div>
+        <div class='data-lower-section'>
+          <h1>${palette.name}</h1>
+          <button class='delete-palette-button'>delete</button>
+        </div>
+      </div>
+      `)
+    })
+  })
 }
 
 const addNewProject = async () => {
@@ -80,7 +102,7 @@ const addNewPalette = async () => {
   }
   console.log(newPalette)
   try {
-    const response = await fetch('/api/v1/projects/1/palettes', {
+    const response = await fetch('/api/v1/projects/11/palettes', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
@@ -89,6 +111,7 @@ const addNewPalette = async () => {
         ...newPalette
       })
     });
+    displayProjects();
     return await response.json()
     // if (response.status !==201) {
     //   alert('palette name already exsists')
@@ -103,9 +126,11 @@ const addNewPalette = async () => {
 
 $(document).ready(() =>{
   getNewPalette();
+  displayProjects();
 })
 
 $('.save-project-button').on('click', addNewProject)
 $('.save-palette-button').on('click', addNewPalette)
 $('.lock-button').on('click', lockColor)
 $('.new-palette-button').on('click', getNewPalette)
+
