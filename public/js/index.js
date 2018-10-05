@@ -54,11 +54,17 @@ const displayProjects = async () => {
       console.log(palette)
       projectDisplay.append(`
       <div class='database-palettes'>
-        <section class='data-color-one' style=background-color:${palette.color_one}></section>
-        <section class='data-color-two' style=background-color:${palette.color_two}></section>
-        <section class='data-color-three' style=background-color:${palette.color_three}></section>
-        <section class='data-color-four' style=background-color:${palette.color_four}></section>
-        <section class='data-color-five' style=background-color:${palette.color_five}></section>
+        <div class='data-colors'>
+          <section class='data-color-one' style=background-color:${palette.color_one}></section>
+          <section class='data-color-two' style=background-color:${palette.color_two}></section>
+          <section class='data-color-three' style=background-color:${palette.color_three}></section>
+          <section class='data-color-four' style=background-color:${palette.color_four}></section>
+          <section class='data-color-five' style=background-color:${palette.color_five}></section>
+        </div>
+        <div class='data-lower-section'>
+          <h1>${palette.name}</h1>
+          <button class='delete-palette-button'>delete</button>
+        </div>
       </div>
       `)
     })
