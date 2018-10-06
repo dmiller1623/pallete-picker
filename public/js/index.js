@@ -53,11 +53,11 @@ const displayProjects = async () => {
       projectDisplay.append(`
       <div class='database-palettes' id=${palette.id}>
         <div class='data-colors'>
-          <section class='data-color-one' style=background-color:${palette.color_one}></section>
-          <section class='data-color-two' style=background-color:${palette.color_two}></section>
-          <section class='data-color-three' style=background-color:${palette.color_three}></section>
-          <section class='data-color-four' style=background-color:${palette.color_four}></section>
-          <section class='data-color-five' style=background-color:${palette.color_five}></section>
+          <section class='data-color-one' id=${palette.color_one} style=background-color:${palette.color_one}></section>
+          <section class='data-color-two' id=${palette.color_two} style=background-color:${palette.color_two}></section>
+          <section class='data-color-three' id=${palette.color_three} style=background-color:${palette.color_three}></section>
+          <section class='data-color-four' id=${palette.color_four} style=background-color:${palette.color_four}></section>
+          <section class='data-color-five' id=${palette.color_five} style=background-color:${palette.color_five}></section>
         </div>
         <div class='data-lower-section'>
           <h1>${palette.name}</h1>
@@ -117,7 +117,6 @@ const addNewPalette = async () => {
 
 const deletePalette = async(event) => {
   if (event.target.className === 'delete-palette-button') {
-    console.log(event.target.parentElement.parentElement.id)
     let id = event.target.parentElement.parentElement.id;
     try {
       await fetch(`/api/v1/palettes/${id}`, {
@@ -126,13 +125,23 @@ const deletePalette = async(event) => {
     } catch (error) {
       throw new Error(error.meassage)
     }
+    displayProjects()
   }
-  displayProjects()
+  return 
 }
 
-const displaySelectedProject = (event) => {
-  if(event.target.className === 'data-colors') {
-    console.log(event.target)
+const displaySelectedPalette = (event) => {
+  if (event.target.parentElement.className === 'data-colors') {
+    const colorOne = event.target.parentElement.children[0].id
+    const colorTwo = event.target.parentElement.children[1].id
+    const colorThree = event.target.parentElement.children[2].id
+    const colorFour = event.target.parentElement.children[3].id
+    const colorFive = event.target.parentElement.children[4].id
+    $('.color-one').css('background-color', colorOne)
+    $('.color-two').css('background-color', colorTwo)
+    $('.color-three').css('background-color', colorThree)
+    $('.color-four').css('background-color', colorFour)
+    $('.color-five').css('background-color', colorFive)
   }
 }
 
@@ -142,7 +151,7 @@ $(document).ready(() =>{
 })
 
 $('.projects-nav').on('click', deletePalette)
-$('.projects-nav').on('click', displaySelectedProject)
+$('.projects-nav').on('click', displaySelectedPalette)
 $('.save-project-button').on('click', addNewProject)
 $('.save-palette-button').on('click', addNewPalette)
 $('.lock-button').on('click', lockColor)
