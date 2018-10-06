@@ -88,6 +88,17 @@ for (let requiredParamater of ['color_one', 'color_two', 'color_three', 'color_f
     }) 
 })
 
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const id = request.params.id
+  database('palettes').where('id', id).delete()
+    .then(palette => {
+      response.status(202).json({ id })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+})
+
 // app.get('/api/v1/palettes', (request, response) => {
 //   const palettes = app.locals.palettes;
 
