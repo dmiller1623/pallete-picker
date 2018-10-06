@@ -1,5 +1,3 @@
-let projects = [];
-
 const getNewColor = () => {
   let codeOptions = '0123456789ABCDEF'.split('');
   var color = '#'
@@ -31,9 +29,12 @@ const getPalettes = async () => {
   const palettes = await response.json();
   return palettes
 }
+
 const displayProjects = async () => {
   const projectDisplay = $('.projects-nav')
   projectDisplay.empty();
+  const projectOptions = $('.project-option-display')
+  projectOptions.empty();
   const response = await fetch('/api/v1/projects')
   const projects = await response.json()
   const palettes = await getPalettes();
@@ -67,6 +68,12 @@ const displayProjects = async () => {
       `)
     })
   })
+  projects.forEach(project => {
+    projectOptions.append(`
+    <option value=${project.name}>${project.name}</option>
+    `)
+  })
+
 }
 
 const addNewProject = async () => {
@@ -89,7 +96,20 @@ const addNewProject = async () => {
   
 }
 
+const changeProject = async() => {
+  let currentProject = $('.project-option-display option:selected').text()
+  const response = await fetch('/api/v1/projects')
+  const projects = await response.json()
+  const foundProject = projects.find(project => {
+    return project.name === currentProject
+  })
+  console.log(foundProject)
+  return foundProject.id
+}
+
 const addNewPalette = async () => {
+  let projectId = await changeProject()
+  console.log(projectId)
   let newPalette = {
     name: $('.palette-name').val(),
     color_one: $('.code-one').text(),
@@ -99,7 +119,7 @@ const addNewPalette = async () => {
     color_five: $('.code-five').text(),
   }
   try {
-    const response = await fetch('/api/v1/projects/11/palettes', {
+    const response = await fetch(`/api/v1/projects/${projectId}/palettes`, {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
@@ -150,6 +170,7 @@ $(document).ready(() =>{
   displayProjects();
 })
 
+$('.palette-name').on('click', changeProject)
 $('.projects-nav').on('click', deletePalette)
 $('.projects-nav').on('click', displaySelectedPalette)
 $('.save-project-button').on('click', addNewProject)
