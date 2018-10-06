@@ -1,3 +1,5 @@
+let currentProjects;
+
 const getNewColor = () => {
   let codeOptions = '0123456789ABCDEF'.split('');
   var color = '#'
@@ -38,6 +40,7 @@ const displayProjects = async () => {
   const response = await fetch('/api/v1/projects')
   const projects = await response.json()
   const palettes = await getPalettes();
+  currentProjects = projects;
   const projectsAndPalettes = projects.map(project => {
     const orderedPalettes = palettes.filter(palette => {
       return palette.project_id === project.id
@@ -77,7 +80,11 @@ const displayProjects = async () => {
 }
 
 const addNewProject = async () => {
-  let projectName = {name: $('.project-name').val()};
+  const projectNames = currentProjects.map(project => project.name)
+  let projectName = {name: $('.project-name').val()}; 
+  if (projectNames.includes(projectName.name)) {
+    return alert(`project name ${projectName} already exsists`)
+  } else {
   try {
     const response = await fetch('/api/v1/projects', {
       method: "POST",
@@ -88,11 +95,12 @@ const addNewProject = async () => {
         ...projectName
       })
     });
-    displayProjects(projects)
+    displayProjects()
     return await response.json()
   } catch (error) {
     throw new Error(error.message)
   }
+}
   
 }
 
@@ -103,13 +111,11 @@ const changeProject = async() => {
   const foundProject = projects.find(project => {
     return project.name === currentProject
   })
-  console.log(foundProject)
   return foundProject.id
 }
 
 const addNewPalette = async () => {
   let projectId = await changeProject()
-  console.log(projectId)
   let newPalette = {
     name: $('.palette-name').val(),
     color_one: $('.code-one').text(),
