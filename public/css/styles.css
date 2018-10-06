@@ -110,6 +110,10 @@ h1 {
   width: 18%;
 }
 
+.lock-button {
+  width: 18%;
+}
+
 .color-code {
   display: flex;
   color: white;
@@ -159,6 +163,8 @@ h1 {
 }
 
 .data-lower-section {
+  padding-right: .5rem;
+  padding-left: .5rem;
   align-items: center;
   justify-content: space-between;
   display: flex;
@@ -190,4 +196,8 @@ h1 {
 .data-color-five {
   width: 20%;
   height: 175px;
+}
+
+.delete-palette-button {
+  width: 15%;
 }

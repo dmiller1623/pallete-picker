@@ -24,6 +24,13 @@ const getNewPalette = () => {
 
 const lockColor = (event) => {
   ($(event.target.parentElement.parentElement)).toggleClass('locked')
+  if ($(event.target.parentElement.parentElement).hasClass('locked')) {
+    ($(event.target)).attr('src', '/images/locked.svg') &&
+    ($(event.target.parentElement.parentElement)).css('opacity', 0.8)
+  } else {
+    ($(event.target)).attr('src', '/images/unlocked.svg') &&
+    ($(event.target.parentElement.parentElement)).css('opacity', 1)
+  }
 }
 
 const getPalettes = async () => {
@@ -65,7 +72,7 @@ const displayProjects = async () => {
         </div>
         <div class='data-lower-section'>
           <h1>${palette.name}</h1>
-          <button class='delete-palette-button'>delete</button>
+          <img class='delete-palette-button' src='/images/rubbish-bin.svg'/>
         </div>
       </div>
       `)
@@ -83,24 +90,26 @@ const addNewProject = async () => {
   const projectNames = currentProjects.map(project => project.name)
   let projectName = {name: $('.project-name').val()}; 
   if (projectNames.includes(projectName.name)) {
+    $('.project-name').val('')
     return alert(`project name ${projectName} already exsists`)
   } else {
-  try {
-    const response = await fetch('/api/v1/projects', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...projectName
-      })
-    });
-    displayProjects()
-    return await response.json()
-  } catch (error) {
-    throw new Error(error.message)
+    $('.project-name').val('')
+    try {
+      const response = await fetch('/api/v1/projects', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...projectName
+        })
+      });
+      displayProjects()
+      return await response.json()
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
-}
   
 }
 
@@ -124,6 +133,8 @@ const addNewPalette = async () => {
     color_four: $('.code-four').text(),
     color_five: $('.code-five').text(),
   }
+  $('.palette-name').val('')
+
   try {
     const response = await fetch(`/api/v1/projects/${projectId}/palettes`, {
       method: 'POST', 
