@@ -43,7 +43,6 @@ const displayProjects = async () => {
     })
     return {...project, palettes: orderedPalettes}
   })
-  console.log(projectsAndPalettes)
   projectsAndPalettes.forEach(project => {
     projectDisplay.append(`
     <div class='database-projects=header'>
@@ -51,9 +50,8 @@ const displayProjects = async () => {
     </div>
     `)
     project.palettes.forEach(palette => {
-      console.log(palette)
       projectDisplay.append(`
-      <div class='database-palettes'>
+      <div class='database-palettes' id=${palette.id}>
         <div class='data-colors'>
           <section class='data-color-one' style=background-color:${palette.color_one}></section>
           <section class='data-color-two' style=background-color:${palette.color_two}></section>
@@ -100,7 +98,6 @@ const addNewPalette = async () => {
     color_four: $('.code-four').text(),
     color_five: $('.code-five').text(),
   }
-  console.log(newPalette)
   try {
     const response = await fetch('/api/v1/projects/11/palettes', {
       method: 'POST', 
@@ -113,22 +110,39 @@ const addNewPalette = async () => {
     });
     displayProjects();
     return await response.json()
-    // if (response.status !==201) {
-    //   alert('palette name already exsists')
-    // } else {
-    //   console.log(response.json())
-    //   return await response.json();
-    // }
   } catch (error) {
     throw new Error(error.message);
   }
 };
+
+const deletePalette = async(event) => {
+  if (event.target.className === 'delete-palette-button') {
+    console.log(event.target.parentElement.parentElement.id)
+    let id = event.target.parentElement.parentElement.id;
+    try {
+      await fetch(`/api/v1/palettes/${id}`, {
+        method: 'DELETE'
+      }); 
+    } catch (error) {
+      throw new Error(error.meassage)
+    }
+  }
+  displayProjects()
+}
+
+const displaySelectedProject = (event) => {
+  if(event.target.className === 'data-colors') {
+    console.log(event.target)
+  }
+}
 
 $(document).ready(() =>{
   getNewPalette();
   displayProjects();
 })
 
+$('.projects-nav').on('click', deletePalette)
+$('.projects-nav').on('click', displaySelectedProject)
 $('.save-project-button').on('click', addNewProject)
 $('.save-palette-button').on('click', addNewPalette)
 $('.lock-button').on('click', lockColor)
