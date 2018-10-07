@@ -12,7 +12,6 @@ body {
 
 h1 {
   font-size: 1.3rem;
-  /* background-color: #00dbde; */
   color: white;
 }
 
@@ -119,6 +118,10 @@ h1 {
 
 .lock-button {
   width: 18%;
+}
+
+.lock-button:hover {
+  cursor: pointer;
 }
 
 .color-code {
