@@ -21,4 +21,6 @@ This was my first project creating my own backend in order to interact with the 
 
 ## ScreenShots
 
+<img src='/public/images/screenshot.png'>
+
 
